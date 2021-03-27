@@ -42,7 +42,7 @@ public class MyLinkedList {
     }
 
     public void delete(int index) {
-        MyNode current = getNode(index -1);
+        MyNode current = getNode(index - 1);
         MyNode nodeToRemove = current.getNext();
         current.setNext(nodeToRemove.getNext());
         length--;
@@ -54,6 +54,20 @@ public class MyLinkedList {
             node = node.getNext();
         }
         return node;
+    }
+
+    public void reverse() {
+        MyNode firstNode = head;
+        tail = head;
+        MyNode nextNode = firstNode.getNext();
+        for (int i = 0; i < length - 1; i++) {
+            MyNode temp = nextNode.getNext();
+            nextNode.setNext(firstNode);
+            firstNode = nextNode;
+            nextNode = temp;
+        }
+        head.setNext(null);
+        head = firstNode;
     }
 
     @Override
@@ -81,6 +95,8 @@ public class MyLinkedList {
         myLinkedList.insert(5, 199);
         myLinkedList.delete(1);
         myLinkedList.delete(5);
-        System.out.println(myLinkedList);
+        System.out.println("initial: " + myLinkedList);
+        myLinkedList.reverse();
+        System.out.println("Reversed: " + myLinkedList);
     }
 }

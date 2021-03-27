@@ -23,7 +23,6 @@ public class MyDoublyLinkedList {
 
     public void prepend(Object value) {
         head = new MyDoublyNode(value, null, head);
-        tail = head.getNext();
         length++;
     }
 
@@ -49,6 +48,21 @@ public class MyDoublyLinkedList {
         return node;
     }
 
+    public void reverse() {
+        MyDoublyNode first = head;
+        tail = head;
+        MyDoublyNode second = first.getNext();
+        for (int i = 0; i < length - 1; i++) {
+            MyDoublyNode temp = second.getNext();
+            second.setNext(first);
+//            second.setPrevious(temp);
+            first = second;
+            second = temp;
+        }
+        head.setNext(null);
+        head = first;
+    }
+
     @Override
     public String toString() {
         MyDoublyNode current = head;
@@ -72,5 +86,7 @@ public class MyDoublyLinkedList {
         System.out.println(myList);
         myList.delete(2);
         System.out.println(myList);
+        myList.reverse();
+        System.out.println("Reversed: " + myList);
     }
 }
