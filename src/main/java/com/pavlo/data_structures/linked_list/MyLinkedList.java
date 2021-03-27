@@ -31,7 +31,7 @@ public class MyLinkedList {
             prepend(value);
             return;
         }
-        if (index == length - 1) {
+        if (index >= length - 1) {
             append(value);
             return;
         }
@@ -39,6 +39,13 @@ public class MyLinkedList {
         MyNode newNode = new MyNode(value, current.getNext());
         current.setNext(newNode);
         length++;
+    }
+
+    public void delete(int index) {
+        MyNode current = getNode(index -1);
+        MyNode nodeToRemove = current.getNext();
+        current.setNext(nodeToRemove.getNext());
+        length--;
     }
 
     private MyNode getNode(int index) {
@@ -54,10 +61,10 @@ public class MyLinkedList {
         MyNode current = head;
         Object[] values = new Object[length];
         for (int i = 0; i < length; i++) {
-            if(current.getValue() != null) {
+            if (current != null) {
                 values[i] = current.getValue();
+                current = current.getNext();
             }
-            current = current.getNext();
         }
         return Arrays.toString(values);
     }
@@ -68,7 +75,12 @@ public class MyLinkedList {
         myLinkedList.append(14);
         myLinkedList.prepend(1);
         System.out.println(myLinkedList);
-        myLinkedList.insert(3, 20);
+        myLinkedList.insert(1, 20);
+        System.out.println(myLinkedList);
+        myLinkedList.insert(4, 99);
+        myLinkedList.insert(5, 199);
+        myLinkedList.delete(1);
+        myLinkedList.delete(5);
         System.out.println(myLinkedList);
     }
 }
